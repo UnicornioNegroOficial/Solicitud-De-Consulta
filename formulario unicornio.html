@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Templo Espiritual Unicornio Negro - Solicitud de Consulta</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: #000;
+      background-image: linear-gradient(135deg, #000 70%, #1c1c1c 100%);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: rgba(25, 25, 25, 0.9);
+      border: 1px solid #d4af37;
+      border-radius: 15px;
+      padding: 30px;
+      width: 95%;
+      max-width: 500px;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
+      text-align: center;
+    }
+
+    .logo {
+      width: 90px;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      color: #d4af37;
+      font-size: 22px;
+      margin-bottom: 5px;
+    }
+
+    p {
+      color: #cfcfcf;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    label {
+      text-align: left;
+      font-weight: bold;
+      color: #d4af37;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    select {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #d4af37;
+      background-color: #111;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    button {
+      background-color: #d4af37;
+      color: #000;
+      border: none;
+      padding: 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #f1d97c;
+      box-shadow: 0 0 10px #d4af37;
+    }
+
+    .loading {
+      display: none;
+      margin-top: 10px;
+      color: #d4af37;
+      font-style: italic;
+      font-size: 14px;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <img src="unicornio-logo.jpg" alt="Logo Unicornio Negro" class="logo">
+    <h1>Bienvenido al Templo Espiritual Unicornio Negro</h1>
+    <p>Completa tus datos y solicita tu consulta espiritual personalizada.</p>
+
+    <form id="consultaForm">
+      <div>
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Ejemplo: Juan Pérez" required>
+      </div>
+
+      <div>
+        <label for="situacion">¿Qué tipo de situación espiritual deseas resolver?</label>
+        <select id="situacion" name="situacion" required>
+          <option value="">Selecciona una opción</option>
+          <option value="Problemas de pareja o separación">Problemas de pareja o separación</option>
+          <option value="Envidia, brujería o bloqueos energéticos">Envidia, brujería o bloqueos energéticos</option>
+          <option value="Prosperidad y dinero">Prosperidad y dinero</option>
+          <option value="Protección espiritual o limpieza">Protección espiritual o limpieza</option>
+          <option value="Otro tipo de caso">Otro tipo de caso</option>
+        </select>
+      </div>
+
+      <button type="submit">Enviar solicitud</button>
+      <div class="loading" id="loading">Enviando solicitud...</div>
+    </form>
+
+    <footer>© 2025 Templo Espiritual Unicornio Negro</footer>
+  </div>
+
+  <script>
+    const form = document.getElementById('consultaForm');
+    const loading = document.getElementById('loading');
+    const numeroWhatsApp = '15873323056'; // +1 587 332 3056
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value.trim();
+      const situacion = document.getElementById('situacion').value;
+
+      if (!nombre || !situacion) {
+        alert('Por favor completa todos los campos antes de continuar.');
+        return;
+      }
+
+      loading.style.display = 'block';
+
+      // Simular tiempo de carga
+      setTimeout(() => {
+        loading.style.display = 'none';
+
+        const mensaje = `Hola, soy ${nombre}. Quiero solicitar una consulta espiritual con el Templo Espiritual Unicornio Negro. Mi situación es sobre: ${situacion}`;
+        const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+
+        window.open(url, '_blank');
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
