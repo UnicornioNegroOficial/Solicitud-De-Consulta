@@ -198,7 +198,7 @@
       text-transform: uppercase;
     }
 
-    /* ===== BOTÓN CTA CON VIBRACIÓN ===== */
+    /* ===== BOTÓN CTA SIN TRACK (SOLO MUESTRA FORMULARIO) ===== */
     .btn-cta {
       background: #312213;
       color: #eac384;
@@ -381,7 +381,7 @@
       margin-bottom: 1rem;
     }
 
-    /* Botón modificado: ahora lleva al formulario en lugar de directo a WhatsApp */
+    /* Botón de las evidencias - sin track, solo muestra formulario */
     .btn-evidencia-form {
       display: inline-block;
       background: #1f3b2b;
@@ -459,7 +459,7 @@
 
     .testimonios-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr; /* dos columnas */
+      grid-template-columns: 1fr 1fr;
       gap: 1rem;
       margin-top: 1.5rem;
     }
@@ -699,6 +699,40 @@
       cursor: pointer;
     }
 
+    /* ===== BOTÓN FLOTANTE DE WHATSAPP (SIN TRACK) ===== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 30px;
+      right: 20px;
+      background: #25D366;
+      color: white;
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5), 0 0 0 2px #075E54;
+      cursor: pointer;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      animation: float 2s infinite ease-in-out;
+      border: 3px solid #075E54;
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      background: #128C7E;
+      box-shadow: 0 15px 25px rgba(0,0,0,0.7);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+
     /* ===== FOOTER ===== */
     .footer-legal {
       background: #0f0804;
@@ -760,6 +794,11 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
 /></noscript>
 
+<!-- BOTÓN FLOTANTE DE WHATSAPP (SIN TRACK, SOLO MUESTRA FORMULARIO) -->
+<div class="whatsapp-float" onclick="showFormOnly()">
+  <i class="fab fa-whatsapp"></i>
+</div>
+
 <div class="container">
   <!-- HEADER -->
   <header class="main-header">
@@ -778,13 +817,14 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
 
   <!-- CONTENIDO PRINCIPAL -->
   <div id="landingContent">
-    <!-- HERO -->
+    <!-- HERO - BOTÓN SIN TRACK -->
     <section class="hero-section">
       <div class="hero-content">
         <h2>
           <span class="hero-accent">Doblega tu Destino:</span><br>Alta Magia de Catemaco
         </h2>
         <p class="hero-sub">Recupera al ser amado, destruye bloqueos y atrae la fortuna con el poder del Brujo Mayor. El unicornio negro guía tu transformación.</p>
+        <!-- Botón principal SIN track, solo muestra formulario -->
         <button class="btn-cta" id="showFormBtn">
           <i class="fas fa-moon"></i> Tomar consulta ahora
         </button>
@@ -825,7 +865,7 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
       </div>
     </div>
 
-    <!-- EVIDENCIAS DE PODER (CARRUSEL CON BOTONES QUE LLEVAN AL FORMULARIO) -->
+    <!-- EVIDENCIAS DE PODER (CARRUSEL CON BOTONES QUE LLEVAN AL FORMULARIO SIN TRACK) -->
     <div class="evidencias-section">
       <h3 class="evidencias-title">Evidencias de mi Poder</h3>
       <p class="evidencias-sub">Resultados reales de mis rituales</p>
@@ -838,8 +878,8 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
               <img src="evidencia-amarre.jpg" alt="Ritual de amarre" class="evidencia-img" onerror="this.onerror=null; this.src='https://placehold.co/400x200/2b1e12/b48c3c?text=Amarre+de+Pareja'">
               <h4 class="evidencia-titulo">✨ Amarre y Retorno ✨</h4>
               <p class="evidencia-desc">Pareja unida después de 3 años de separación. El poder del amor siempre regresa.</p>
-              <!-- Botón modificado: llama a la función showForm() para abrir el formulario -->
-              <button class="btn-evidencia-form" onclick="showFormAndTrack()">
+              <!-- Botón SIN track, solo muestra formulario -->
+              <button class="btn-evidencia-form" onclick="showFormOnly()">
                 <i class="fab fa-whatsapp"></i> Contratar este poder
               </button>
             </div>
@@ -850,8 +890,8 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
               <img src="evidencia-sanacion.jpg" alt="Ritual de sanación" class="evidencia-img" onerror="this.onerror=null; this.src='https://placehold.co/400x200/2b1e12/b48c3c?text=Sanación+Espiritual'">
               <h4 class="evidencia-titulo">🌿 Sanación y Salud 🌿</h4>
               <p class="evidencia-desc">Limpieza energética profunda. Cliente recuperó su bienestar físico y espiritual.</p>
-              <!-- Botón modificado: llama a la función showForm() para abrir el formulario -->
-              <button class="btn-evidencia-form" onclick="showFormAndTrack()">
+              <!-- Botón SIN track, solo muestra formulario -->
+              <button class="btn-evidencia-form" onclick="showFormOnly()">
                 <i class="fab fa-whatsapp"></i> Contratar este poder
               </button>
             </div>
@@ -862,8 +902,8 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
               <img src="evidencia-prosperidad.jpg" alt="Ritual de prosperidad" class="evidencia-img" onerror="this.onerror=null; this.src='https://placehold.co/400x200/2b1e12/b48c3c?text=Prosperidad+y+Dinero'">
               <h4 class="evidencia-titulo">💰 Prosperidad y Dinero 💰</h4>
               <p class="evidencia-desc">Negocio al borde de la quiebra. Después del ritual, las ventas se triplicaron.</p>
-              <!-- Botón modificado: llama a la función showForm() para abrir el formulario -->
-              <button class="btn-evidencia-form" onclick="showFormAndTrack()">
+              <!-- Botón SIN track, solo muestra formulario -->
+              <button class="btn-evidencia-form" onclick="showFormOnly()">
                 <i class="fab fa-whatsapp"></i> Contratar este poder
               </button>
             </div>
@@ -923,7 +963,7 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
           </div>
           <div class="testimonio-texto-grid">"Recibí una herencia inesperada a los 12 días del pacto de dinero."</div>
         </div>
-        <!-- Testimonio 4 (extra para llenar grid) -->
+        <!-- Testimonio 4 -->
         <div class="testimonio-card-grid">
           <div class="testimonio-foto-grid">
             <img src="cliente4.jpg" alt="Jorge L." onerror="this.src='https://placehold.co/60x60/2b1e12/b48c3c?text=JL'">
@@ -1031,11 +1071,10 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
   </footer>
 </div>
 
-<!-- SCRIPT para carrusel de evidencias y transición -->
+<!-- SCRIPT -->
 <script>
-  // Función para mostrar el formulario y enviar el track
-  function showFormAndTrack() {
-    fbq('track', 'SubmitApplication'); // Envía el evento a Meta
+  // Función para mostrar el formulario SIN track
+  function showFormOnly() {
     const landingDiv = document.getElementById('landingContent');
     const formSection = document.getElementById('formSection');
     landingDiv.style.transition = 'opacity 0.4s ease';
@@ -1043,6 +1082,7 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
     setTimeout(() => {
       landingDiv.style.display = 'none';
       formSection.style.display = 'block';
+      formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 350);
   }
 
@@ -1066,7 +1106,7 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
   nextEvidencia.addEventListener('click', () => updateEvidencias(evidenciaIndex + 1));
   evidenciaDots.forEach((dot, idx) => dot.addEventListener('click', () => updateEvidencias(idx)));
 
-  // Transición hero → formulario (para el botón principal)
+  // Transición hero → formulario (botón principal SIN track)
   const showFormBtn = document.getElementById('showFormBtn');
   const landingDiv = document.getElementById('landingContent');
   const formSection = document.getElementById('formSection');
@@ -1077,10 +1117,11 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
     setTimeout(() => {
       landingDiv.style.display = 'none';
       formSection.style.display = 'block';
+      formSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 350);
   });
 
-  // Simulación de consulta con número de WhatsApp actualizado
+  // Simulación de consulta - EL ÚNICO TRACK ESTÁ EN EL BOTÓN DE WHATSAPP FINAL
   document.getElementById("magicForm").addEventListener("submit", function(event){
     event.preventDefault();
     document.getElementById("magicForm").style.display = "none";
@@ -1108,6 +1149,7 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
           <p><span>Tu mensaje:</span> <span>${mensaje.substring(0,50)}…</span></p>
         </div>
         <p style="color:#ccb185;">Los espíritus de Catemaco ya trabajan. Envía este resumen por WhatsApp para recibir instrucciones del ritual.</p>
+        <!-- ÚNICO BOTÓN CON TRACK SubmitApplication -->
         <a class="whatsapp-btn" href="${whatsappLink}" target="_blank" onclick="fbq('track', 'SubmitApplication');">
           <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
         </a>
