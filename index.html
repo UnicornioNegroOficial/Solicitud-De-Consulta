@@ -381,8 +381,8 @@
       margin-bottom: 1rem;
     }
 
-    /* Botón de WhatsApp dentro de cada evidencia */
-    .btn-evidencia-wa {
+    /* Botón modificado: ahora lleva al formulario en lugar de directo a WhatsApp */
+    .btn-evidencia-form {
       display: inline-block;
       background: #1f3b2b;
       color: #eedab3;
@@ -397,10 +397,15 @@
       width: auto;
       min-width: 180px;
       transition: 0.2s;
+      cursor: pointer;
+      border: none;
+      background: #25D366;
+      color: white;
+      border: 2px solid #075E54;
     }
 
-    .btn-evidencia-wa:hover {
-      background: #2d5a3d;
+    .btn-evidencia-form:hover {
+      background: #128C7E;
       transform: scale(1.02);
     }
 
@@ -820,7 +825,7 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
       </div>
     </div>
 
-    <!-- EVIDENCIAS DE PODER (CARRUSEL CON BOTONES WHATSAPP) -->
+    <!-- EVIDENCIAS DE PODER (CARRUSEL CON BOTONES QUE LLEVAN AL FORMULARIO) -->
     <div class="evidencias-section">
       <h3 class="evidencias-title">Evidencias de mi Poder</h3>
       <p class="evidencias-sub">Resultados reales de mis rituales</p>
@@ -833,10 +838,10 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
               <img src="evidencia-amarre.jpg" alt="Ritual de amarre" class="evidencia-img" onerror="this.onerror=null; this.src='https://placehold.co/400x200/2b1e12/b48c3c?text=Amarre+de+Pareja'">
               <h4 class="evidencia-titulo">✨ Amarre y Retorno ✨</h4>
               <p class="evidencia-desc">Pareja unida después de 3 años de separación. El poder del amor siempre regresa.</p>
-              <!-- Botón WhatsApp con track y número actualizado -->
-              <a href="https://wa.me/522296630214?text=Hola%20Brujo%20Mayor%2C%20vengo%20de%20la%20evidencia%20de%20Amarre%20y%20quiero%20mi%20ritual." class="btn-evidencia-wa" target="_blank" onclick="fbq('track', 'SubmitApplication');">
+              <!-- Botón modificado: llama a la función showForm() para abrir el formulario -->
+              <button class="btn-evidencia-form" onclick="showFormAndTrack()">
                 <i class="fab fa-whatsapp"></i> Contratar este poder
-              </a>
+              </button>
             </div>
           </div>
           <!-- Evidencia 2: Salud / Sanación -->
@@ -845,10 +850,10 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
               <img src="evidencia-sanacion.jpg" alt="Ritual de sanación" class="evidencia-img" onerror="this.onerror=null; this.src='https://placehold.co/400x200/2b1e12/b48c3c?text=Sanación+Espiritual'">
               <h4 class="evidencia-titulo">🌿 Sanación y Salud 🌿</h4>
               <p class="evidencia-desc">Limpieza energética profunda. Cliente recuperó su bienestar físico y espiritual.</p>
-              <!-- Botón WhatsApp con track y número actualizado -->
-              <a href="https://wa.me/522296630214?text=Hola%20Brujo%20Mayor%2C%20vengo%20de%20la%20evidencia%20de%20Sanación%20y%20quiero%20mi%20ritual." class="btn-evidencia-wa" target="_blank" onclick="fbq('track', 'SubmitApplication');">
+              <!-- Botón modificado: llama a la función showForm() para abrir el formulario -->
+              <button class="btn-evidencia-form" onclick="showFormAndTrack()">
                 <i class="fab fa-whatsapp"></i> Contratar este poder
-              </a>
+              </button>
             </div>
           </div>
           <!-- Evidencia 3: Prosperidad / Dinero -->
@@ -857,10 +862,10 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
               <img src="evidencia-prosperidad.jpg" alt="Ritual de prosperidad" class="evidencia-img" onerror="this.onerror=null; this.src='https://placehold.co/400x200/2b1e12/b48c3c?text=Prosperidad+y+Dinero'">
               <h4 class="evidencia-titulo">💰 Prosperidad y Dinero 💰</h4>
               <p class="evidencia-desc">Negocio al borde de la quiebra. Después del ritual, las ventas se triplicaron.</p>
-              <!-- Botón WhatsApp con track y número actualizado -->
-              <a href="https://wa.me/522296630214?text=Hola%20Brujo%20Mayor%2C%20vengo%20de%20la%20evidencia%20de%20Prosperidad%20y%20quiero%20mi%20ritual." class="btn-evidencia-wa" target="_blank" onclick="fbq('track', 'SubmitApplication');">
+              <!-- Botón modificado: llama a la función showForm() para abrir el formulario -->
+              <button class="btn-evidencia-form" onclick="showFormAndTrack()">
                 <i class="fab fa-whatsapp"></i> Contratar este poder
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -1028,6 +1033,19 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
 
 <!-- SCRIPT para carrusel de evidencias y transición -->
 <script>
+  // Función para mostrar el formulario y enviar el track
+  function showFormAndTrack() {
+    fbq('track', 'SubmitApplication'); // Envía el evento a Meta
+    const landingDiv = document.getElementById('landingContent');
+    const formSection = document.getElementById('formSection');
+    landingDiv.style.transition = 'opacity 0.4s ease';
+    landingDiv.style.opacity = '0';
+    setTimeout(() => {
+      landingDiv.style.display = 'none';
+      formSection.style.display = 'block';
+    }, 350);
+  }
+
   // Carrusel de Evidencias
   const evidenciasInner = document.getElementById('evidenciasInner');
   const prevEvidencia = document.getElementById('prevEvidencia');
@@ -1048,7 +1066,7 @@ src="https://www.facebook.com/tr?id=1694929741309314&ev=PageView&noscript=1"
   nextEvidencia.addEventListener('click', () => updateEvidencias(evidenciaIndex + 1));
   evidenciaDots.forEach((dot, idx) => dot.addEventListener('click', () => updateEvidencias(idx)));
 
-  // Transición hero → formulario
+  // Transición hero → formulario (para el botón principal)
   const showFormBtn = document.getElementById('showFormBtn');
   const landingDiv = document.getElementById('landingContent');
   const formSection = document.getElementById('formSection');
