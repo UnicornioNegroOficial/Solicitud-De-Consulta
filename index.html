@@ -596,6 +596,20 @@
       margin-bottom: 1.2rem;
     }
 
+    /* Mensaje agregado arriba del formulario */
+    .form-intro-message {
+      text-align: center;
+      background: #2d1d0f;
+      border-left: 4px solid #eac384;
+      padding: 0.8rem;
+      border-radius: 30px 5px 30px 5px;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+      color: #ecdbba;
+      font-style: italic;
+      border: 1px solid #b48c3c;
+    }
+
     .form-grid {
       display: flex;
       flex-direction: column;
@@ -635,6 +649,11 @@
       outline: none;
       border-color: #cfac62;
       box-shadow: 0 0 10px #b27e35;
+    }
+
+    /* Estilo para el campo de texto personalizado que aparece al seleccionar la opción */
+    #mensajePersonalizadoContainer {
+      margin-top: 5px;
     }
 
     .btn-primary {
@@ -827,7 +846,7 @@ src="https://www.facebook.com/tr?id=2023611254868104&ev=PageView&noscript=1"
         <p class="hero-sub">Recupera al ser amado, destruye bloqueos y atrae la fortuna con el poder del Brujo Mayor. El unicornio negro guía tu transformación.</p>
         <!-- Botón principal SIN track, solo muestra formulario -->
         <button class="btn-cta" id="showFormBtn">
-          <i class="fas fa-moon"></i> Tomar consulta ahora
+          <i class="fas fa-moon"></i> Tomar Consulta Gratis
         </button>
       </div>
     </section>
@@ -1020,6 +1039,11 @@ src="https://www.facebook.com/tr?id=2023611254868104&ev=PageView&noscript=1"
         <p>Completa tu pedido de poder. Canalización inmediata.</p>
       </div>
 
+      <!-- NUEVO MENSAJE INTRODUCTORIO -->
+      <div class="form-intro-message">
+        <i class="fas fa-feather-alt"></i> Al completar estos datos, el Maestro Unicornio Negro recibirá tu consulta y te dará una respuesta clara en WhatsApp.
+      </div>
+
       <form id="magicForm">
         <div class="form-grid">
           <div class="form-group">
@@ -1032,24 +1056,22 @@ src="https://www.facebook.com/tr?id=2023611254868104&ev=PageView&noscript=1"
           </div>
           <div class="form-group">
             <label><i class="fas fa-skull"></i> Tipo de trabajo</label>
-            <select id="trabajo" class="form-control" required>
-              <option value="Amarre de pareja">Amarre de pareja</option>
+            <select id="trabajo" class="form-control" required onchange="handleTrabajoChange(this)">
+              <option value="Problemas de Pareja">Problemas de Pareja</option>
               <option value="Limpieza espiritual">Limpieza espiritual</option>
-              <option value="Pacto de dinero">Pacto de dinero</option>
+              <option value="Problemas de Salud">Problemas de Salud</option>
               <option value="Abrecaminos">Abrecaminos / éxito</option>
               <option value="Protección contra envidias">Protección contra envidias</option>
+              <option value="personalizado">✍️ Escribir con mis propias palabras</option>
             </select>
           </div>
-          <div class="form-group">
-            <label><i class="fas fa-heart"></i> Nombre de la persona (opcional)</label>
-            <input type="text" id="personaObjetivo" class="form-control" placeholder="Para amarres o protección">
-          </div>
-          <div class="form-group">
-            <label><i class="fas fa-feather"></i> Mensaje para el Brujo Mayor</label>
-            <textarea id="mensaje" class="form-control" rows="2" placeholder="Cuéntame tu situación..."></textarea>
+          <!-- Contenedor para el mensaje personalizado (oculto por defecto) -->
+          <div id="mensajePersonalizadoContainer" class="form-group" style="display: none;">
+            <label><i class="fas fa-feather"></i> Tu petición personal</label>
+            <textarea id="mensajePersonalizado" class="form-control" rows="3" placeholder="Describe tu situación o el tipo de ayuda que necesitas..."></textarea>
           </div>
         </div>
-        <button type="submit" class="btn-primary">Iniciar mi transformación ahora</button>
+        <button type="submit" class="btn-primary">Enviar consulta</button>
       </form>
 
       <div id="loading" class="resultado">
@@ -1074,6 +1096,18 @@ src="https://www.facebook.com/tr?id=2023611254868104&ev=PageView&noscript=1"
 
 <!-- SCRIPT -->
 <script>
+  // Función para manejar el cambio en el select de trabajo
+  function handleTrabajoChange(select) {
+    const container = document.getElementById('mensajePersonalizadoContainer');
+    if (select.value === 'personalizado') {
+      container.style.display = 'block';
+      document.getElementById('mensajePersonalizado').setAttribute('required', 'required');
+    } else {
+      container.style.display = 'none';
+      document.getElementById('mensajePersonalizado').removeAttribute('required');
+    }
+  }
+
   // Función para mostrar el formulario SIN track
   function showFormOnly() {
     const landingDiv = document.getElementById('landingContent');
@@ -1132,27 +1166,30 @@ src="https://www.facebook.com/tr?id=2023611254868104&ev=PageView&noscript=1"
       document.getElementById("loading").style.display = "none";
 
       const nombre = document.getElementById("nombre").value;
-      const trabajo = document.getElementById("trabajo").value;
-      const objetivo = document.getElementById("personaObjetivo").value || "—";
-      const mensaje = document.getElementById("mensaje").value || "—";
+      const trabajoSelect = document.getElementById("trabajo");
+      let trabajo = trabajoSelect.value;
+      const mensajePersonalizado = document.getElementById("mensajePersonalizado").value;
+
+      // Si la opción es personalizada, usamos el mensaje del textarea
+      if (trabajo === 'personalizado') {
+        trabajo = "Petición personal: " + (mensajePersonalizado || "No especificada");
+      }
 
       const resultadoDiv = document.getElementById("resultado");
       resultadoDiv.style.display = "block";
       // Número actualizado
-      const whatsappLink = `https://wa.me/522296630214?text=Hola%20Brujo%20Mayor,%20soy%20${encodeURIComponent(nombre)}.%20Mi%20petición:%20${encodeURIComponent(trabajo)}%0APersona:%20${encodeURIComponent(objetivo)}%0AMensaje:%20${encodeURIComponent(mensaje)}`;
+      const whatsappLink = `https://wa.me/522296630214?text=Hola%20Brujo%20Mayor,%20soy%20${encodeURIComponent(nombre)}.%20Mi%20petición:%20${encodeURIComponent(trabajo)}`;
 
       resultadoDiv.innerHTML = `
-        <h3 style="color:#e6c480; margin-bottom:1rem;">🪄 Invocación recibida</h3>
+        <h3 style="color:#e6c480; margin-bottom:1rem;">🪄 Consulta Recibida</h3>
         <p style="margin-bottom:1rem; color:#f2dbb5;"><strong>${nombre}</strong>, el Brujo Mayor atiende tu ruego.</p>
         <div class="resumen">
-          <p><span>Trabajo solicitado:</span> <span>${trabajo}</span></p>
-          <p><span>Persona (si aplica):</span> <span>${objetivo}</span></p>
-          <p><span>Tu mensaje:</span> <span>${mensaje.substring(0,50)}…</span></p>
+          <p><span>Trabajo solicitado:</span> <span>${trabajo.substring(0,100)}…</span></p>
         </div>
-        <p style="color:#ccb185;">Los espíritus de Catemaco ya trabajan. Envía este resumen por WhatsApp para recibir instrucciones del ritual.</p>
+        <p style="color:#ccb185;">El Brujo Mayor De Catemaco está esperando tu mensaje por WhatsApp para tomar tu consulta.</p>
         <!-- ÚNICO BOTÓN CON TRACK SubmitApplication -->
         <a class="whatsapp-btn" href="${whatsappLink}" target="_blank" onclick="fbq('track', 'SubmitApplication');">
-          <i class="fab fa-whatsapp"></i> Enviar por WhatsApp
+          <i class="fab fa-whatsapp"></i> Enviar mensaje de WhatsApp
         </a>
       `;
     }, 8000);
